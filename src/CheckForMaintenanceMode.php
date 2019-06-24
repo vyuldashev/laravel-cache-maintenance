@@ -26,7 +26,6 @@ class CheckForMaintenanceMode extends Middleware
             throw new MaintenanceModeException($data['time'], $data['retry'], $data['message']);
         }
 
-        return $next($request);
+        return parent::handle($request, $next);
     }
-
 }

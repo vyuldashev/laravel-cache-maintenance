@@ -8,12 +8,11 @@ class LaravelCacheMaintenanceServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton('command.down', static function () {
-            return new DownCommand();
-        });
-
-        $this->app->singleton('command.up', static function () {
-            return new UpCommand();
-        });
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MaintenanceOffCommand::class,
+                MaintenanceOnCommand::class,
+            ]);
+        }
     }
 }
